@@ -2,7 +2,7 @@
 """
 base: contains BaseModel implementation
 """
-from sqlalchemy import String
+from sqlalchemy import Column, String
 from sqlalchemy.orm import DeclarativeBase
 from uuid import uuid4
 
