@@ -50,7 +50,26 @@ class DBStorage:
             obj_dict[key] = obj
 
         return obj_dict
+    
+    def get(self, clss, id):
+        """ Retrieves an object by its class and ID
+        """
+        if clss is None or id is None:
+            return None
+        obj = self.__session.query(clss).get(id)
+        return obj
 
+    def new(self, obj):
+        """ Adds a new object to the current database session
+        """
+        if obj is not None:
+            self.__session.add(obj)
+
+    def delete(self, obj=None):
+        """ Deletes an object from the current database session
+        """
+        if obj is not None:
+            self.__session.delete(obj)
 
     def save(self):
         """ Commits all changes to the database session
