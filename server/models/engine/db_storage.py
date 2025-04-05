@@ -5,9 +5,9 @@ for interaction with MySQL databases using SQLAlchemy's ORM capabilities.
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from models.base import Base
-from models.client import Client
-from models.contact import Contact
+from server.models.base import Base
+from server.models.client import Client
+from server.models.contact import Contact
 
 class DBStorage:
     """
@@ -27,8 +27,8 @@ class DBStorage:
         Initializes the DBStorage instance with the provided database
         connection parameters.
         """
+        url = f'mysql+mysqldb://{user}:{password}@{host}/{db}'
         # url = f'mysql+pymysql://{user}:{password}@{host}/{db}',
-        url = f'mysql+mysqldb://{user}:{password}@{host}/{db}',
         self.__engine = create_engine(url)
         self.__session = scoped_session(sessionmaker(bind=self.__engine))
     
