@@ -37,5 +37,19 @@ class BaseModel():
         obj_dict['__class__'] = self.__class__.__name__
         if obj_dict.get('_sa_instance_state'):
             del obj_dict['_sa_instance_state']
-
+        
         return obj_dict
+    
+    def save(self):
+        """ Saves the instance to the database
+        """
+        from server.models import storage
+        storage.new(self)
+        storage.save()
+    
+    def delete(self):
+        """ Deletes the instance from the database
+        """
+        from server.models import storage
+        storage.delete(self)
+        storage.save()
