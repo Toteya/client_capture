@@ -3,9 +3,9 @@ client: Contains client model implementation
 """
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models.base_model import BaseModel
-from models.base_model import Base
-from models.base_model import Column
+from server.models.base import BaseModel
+from server.models.base import Base
+from server.models.base import Column
 
 
 class Client(BaseModel, Base):
