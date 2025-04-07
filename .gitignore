@@ -1,2 +1,8 @@
-__pycache__
-env
+# Python __pycache__ and bytecode
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
