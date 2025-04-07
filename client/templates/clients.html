@@ -4,8 +4,18 @@
 
   <button id="addClientButton">New Client</button>
 
+  <div id="clientFormContainer" style="display: none;">
+    <form id="clientForm">
+      <label for="name">New client:</label>
+      <input type="text" id="name" name="name" placeholder="Client name" required>
+      <button type="submit" id="addButton">Add</button>
+      <button type="button" id="cancelButton">Cancel</button>
+    </form>
+  </div>
+
   <div id="clientList">
   </div>
+
 {% endblock %}
 
 {% block scripts %}
