@@ -1,24 +1,13 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <div class="client-list">
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Client Code</th>
-          <th>No. of Contacts</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for client in clients %}
-          <tr>
-            <td>{{ client.name }}</td>
-            <td>{{ client.client_code }}</td>
-            <td>{{ client.contacts | length }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+
+  <button id="addClientButton">New Client</button>
+
+  <div id="clientList">
   </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="module" src="{{ url_for('static', filename='scripts/clients.js') }}"></script>
 {% endblock %}
