@@ -1,12 +1,24 @@
 {% extends "index.html" %}
+
 {% block content %}
-    <div class="client-list">
-      <ul id="clients">
+  <div class="client-list">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Client Code</th>
+          <th>No. of Contacts</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for client in clients %}
-          <li>
-              {{ client.name }}
-          </li>
+          <tr>
+            <td>{{ client.name }}</td>
+            <td>{{ client.client_code }}</td>
+            <td>{{ client.contacts | length }}</td>
+          </tr>
         {% endfor %}
-      </ul>
-    </div>
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
