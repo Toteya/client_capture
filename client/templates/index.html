@@ -6,14 +6,22 @@
   <title>Client Capture App</title>
 </head>
 <body>
-  <!-- <div id="'root"></div> -->
   <header>
     <h1>Client Capture App</h1>
+    <div class="pageMenu">
+      <a href="{{ url_for('clients') }}">
+        <button id="clientsButton">Clients</button>
+      </a>
+      <a href="{{ url_for('contacts') }}">
+        <button id="contactsButton">Contacts</button>
+      </a>
+    </div>
   </header>
+
   <nav class="Tabs">
     <ul>
-      <li><a id="clients-tab" href="{{ url_for('clients') }}">General</a></li>
-      <li><a id="contacts-tab" href="{{ url_for('contacts') }}">Contacts</a></li>
+      <li><a id="clients-tab" href="">General</a></li>
+      <li><a id="contacts-tab" href="">Contacts</a></li>
     </ul>
   </nav>
 

@@ -1,9 +1,9 @@
 {% extends "index.html" %}
 {% block content %}
   <ul id="clients">
-    {% for client in clients %}
+    {% for contact in contacts %}
       <li>
-        {{ client.name }}
+        {{ contact.name }}
       </li>
     {% endfor %}
   </ul>
