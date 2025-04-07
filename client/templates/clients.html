@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+    <div class="client-list">
+      <ul id="clients">
+        {% for client in clients %}
+          <li>
+              {{ client.name }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endblock %}
