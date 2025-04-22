@@ -2,6 +2,7 @@
 API views for the contact data endpoints
 """
 from flask import jsonify, request
+from sqlalchemy.exc import IntegrityError
 from server.models import storage
 from server.models.client import Client
 from server.models.contact import Contact
@@ -63,6 +64,10 @@ def link_client_to_contact(contact_id, client_id):
         return jsonify({"error": "Client not found"}), 404
     
     contact.clients.append(client)
-    contact.save()
+    try:
+        contact.save()
+    except IntegrityError:
+        storage.close()
+        return jsonify({"error": "Client already linked to this contact"}), 400
     contact.name
     return jsonify(contact.to_dict()), 200
