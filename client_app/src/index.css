@@ -125,7 +125,7 @@ body {
   cursor: pointer;
 }
 
-.Home, .NewPost, .PostPage, .About, .Missing {
+.Clients, .Contacts {
   width: 100%;
   flex-grow: 1;
   padding: 1rem;
@@ -133,87 +133,6 @@ body {
   background-color: #fff;
 }
 
-.post {
-  margin-top: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid lightgray;
-}
-
-.Home .post a {
-  text-decoration: none;
-}
-
-.Home .post a, 
-.Home .post a:visited {
-  color: #000;
-}
-
-.post:first-child {
-  margin-top: 0;
-}
-
-.post:last-child {
-  border-bottom: none;
-}
-
-.postDate {
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-.postBody {
-  margin: 1rem 0;
-}
-
-.newPostForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.newPostForm label {
-  margin-top: 1rem;
-}
-
-.newPostForm input[type='text'], 
-.newPostForm textarea {
-  font-family: 'Open Sans', sans-serif;
-  width: 100%;
-  min-height: 48px;
-  font-size: 1rem;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  margin-right: 0.25rem;
-  outline: none;
-}
-
-.newPostForm textarea {
-  height: 100px;
-}
-
-.newPostForm button {
-  margin-top: 1rem;
-  height: 48px;
-  min-width: 48px;
-  border-radius: 10px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.Missing p, .PostPage p, .NewPost p {
-  margin-top: 1rem;
-}
-
-.PostPage button {
-  height: 48px;
-  min-width: 48px;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
-  font-size: 1rem;
-  color: #fff;
-  cursor: pointer;
-}
 
 .deleteButton {
   background-color: #f00;
@@ -227,52 +146,49 @@ body {
   margin-top: 2rem;
 }
 
-@media only screen and (min-width: 610px) {
-  html {
-    font-size: 22px;
-  }
-
-  .Header h1 {
-    font-size: 2rem;
-  }
-
-  .Nav {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .Nav ul {
-    text-align: right;
-  }
-
-  .Nav li:hover, 
-  .Nav li:focus, 
-  .Nav li:hover a, 
-  .Nav li:focus a  {
-    background-color: #eee;
-    color: #333;
-  }
-
-  .searchForm {
-    width: 50%;
-    padding: .5rem 0;
-  }
- 
-  .searchForm input[type="text"] {
-    margin-left: 0.5rem;
-  }
-
-  .newPostForm textarea {
-    height: 300px;
-  }
+/* Dropdown Button */
+.dropbtn {
+  padding: 1rem;
+  border: none;
 }
 
-@media only screen and (min-width: 992px) {
-
-  .Header svg {
-    font-size: 3rem;
-  }
-
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 1rem;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #578899;
+}
+
+tr:hover {
+  /* background-color: #578899; */
+}
+

@@ -1,5 +1,5 @@
 
-const Clients = ({ clients, setClients }) => {
+const Clients = ({ clients, setClients , contacts}) => {
   return (
     <div className="Clients">
       <h2>Clients</h2>
@@ -15,6 +15,16 @@ const Clients = ({ clients, setClients }) => {
               <tr key={client.id}>
                 <td>{client.name}</td>
                 <td>{client.client_code}</td>
+                <td className="dropdown">
+                    <button className="dropbtn">Add Contacts</button>
+                    <div className="dropdown-content">
+                        {contacts.map((contact) => (
+                            <a key={contact.id} href="#">
+                              {contact.name} {contact.email}
+                            </a>
+                        ))}
+                    </div>
+                </td>
               </tr>
             ))}
           </tbody>

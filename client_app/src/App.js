@@ -40,6 +40,14 @@ function App() {
     fetchContacts();
   }, []);
 
+  // Link a contact to a client
+  const linkContact = async (clientId, contactId) => {
+  }
+
+  // Link a client to a contact  
+  const linkClient = async (contactId, clientId) => {
+  }
+
   return (
     <div className="App">
       <Header title="Client Capture" />
@@ -49,6 +57,7 @@ function App() {
           <Clients
             clients={clients}
             setClients={setClients}
+            contacts={contacts}
           />
         </Route>
         <Route path="/contacts">
