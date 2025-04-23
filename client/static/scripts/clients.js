@@ -1,6 +1,6 @@
 $(document).ready(function() {
   const $container = $('#clientList');
-
+  
   // Fetch the client data from the API
   $.ajax({
     type: 'GET',
@@ -8,7 +8,7 @@ $(document).ready(function() {
     contentType: 'application/json',
     success: (response) => { 
       const clients = response;
-      generateClientTable(clients)
+      generateClientTable(clients);
     },
     error: (error) => {
       console.error('Error fetching clients:', error.state);
@@ -16,10 +16,8 @@ $(document).ready(function() {
     }
   });
 
-  
   // Generate the client list
   const generateClientTable = (clients) => {
-
     if (clients.length === 0) {
       $container.append('<p>No clients found.</p>');
       return;
@@ -39,16 +37,66 @@ $(document).ready(function() {
       const $row = $('<tr>').append(`
         <td>${client.name}</td>
         <td>${client.client_code}</td>
-        <td>0</td>
+        <td style="text-align: center;">0</td>
+        <td style="text-align: center;">
+          <div class="custom-dropdown">
+            <button class="showDropdownButton">Add Contacts</button>
+            <div class="dropdownContainer" style="display: none;">
+              <div class="checkboxList"></div>
+              <button class="submitSelection">Submit</button>
+            </div>
+          </div>
+        </td>
       `);
       $tbody.append($row);
     });
 
     $table.append($thead, $tbody);
     $container.append($table);
-  }
+  };
 
-  // Creating a new client
+  // Fetch and populate the checkboxes when the dropdown is shown
+  const fetchContacts = (clientId) => {
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:5001/api/contacts',
+      contentType: 'application/json',
+      success: (contacts) => {
+        generateCheckboxes(contacts, clientId);
+      },
+      error: (error) => {
+        console.error('Error fetching contacts:', error);
+      }
+    });
+  };
+
+  const generateCheckboxes = (contacts, clientId) => {
+    const $checkboxList = $('.checkboxList');
+    $checkboxList.empty(); // Clear existing checkboxes
+
+    contacts.forEach(contact => {
+      const checkbox = `
+        <label>
+          <input type="checkbox" class="contactCheckbox" value="${contact.id}" data-client-id="${clientId}">${contact.name}
+        </label><br/>
+      `;
+      $checkboxList.append(checkbox);
+    });
+  };
+
+  // Show/Hide the dropdown for adding contacts
+  $(document).on('click', '.showDropdownButton', function() {
+    const $dropdownContainer = $(this).siblings('.dropdownContainer');
+    const clientId = $(this).closest('tr').find('td:first').text(); // Assuming first td is the client name or ID
+    $dropdownContainer.toggle();
+    
+    // Fetch contacts when the dropdown is shown
+    if ($dropdownContainer.is(':visible')) {
+      fetchContacts(clientId);
+    }
+  });
+
+  // Handle the form submission for adding a client
   const $addClientButton = $('#addClientButton');
   const $formContainer = $('#clientFormContainer');
   const $form = $('#clientForm');
@@ -71,7 +119,7 @@ $(document).ready(function() {
           data: JSON.stringify({ name: clientName, client_code: clientCode }),
           success: (response) => {
             alert('Client added successfully!');
-            location.reload(); // Reload the page to see the new client
+            location.reload();
           },
           error: (error) => {
             console.error('Error adding client:', error);
@@ -85,4 +133,5 @@ $(document).ready(function() {
       $form[0].reset();
     });
   });
+
 });
