@@ -24,4 +24,4 @@ class Client(BaseModel, Base):
     name = Column('name', String(128), nullable=False)
     client_code = Column('client_code', String(128), nullable=False)
 
-    contacts = relationship('Contact', back_populates='clients', secondary=client_contact_assoc)
+    contacts = relationship('Contact', back_populates='clients', secondary=client_contact_assoc, lazy='joined')

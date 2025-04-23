@@ -18,4 +18,4 @@ class Contact(BaseModel, Base):
     email = Column('email', String(128), unique=True, nullable=False)
     client_id = Column('client_id', String(36), ForeignKey('clients.id'), nullable=True)
 
-    clients = relationship('Client', back_populates='contacts', secondary=client_contact_assoc)
+    clients = relationship('Client', back_populates='contacts', secondary=client_contact_assoc, lazy='joined')
