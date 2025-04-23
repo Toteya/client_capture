@@ -9,6 +9,7 @@ const Clients = ({ clients, setClients , contacts, linkContact}) => {
             <tr>
               <th>Name</th>
               <th>Code</th>
+              <th>No. of Contacts</th>
             </tr>
           </thead>
           <tbody>
@@ -16,6 +17,7 @@ const Clients = ({ clients, setClients , contacts, linkContact}) => {
               <tr key={client.id}>
                 <td>{client.name}</td>
                 <td>{client.client_code}</td>
+                <td>{client.contacts === undefined ? 0 : client.contacts.length }</td>
                 <td className="dropdown">
                   <button className="dropbtn">Add Contacts</button>
                   <div className="dropdown-content">
