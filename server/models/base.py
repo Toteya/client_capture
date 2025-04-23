@@ -37,7 +37,10 @@ class BaseModel():
         obj_dict['__class__'] = self.__class__.__name__
         if obj_dict.get('_sa_instance_state'):
             del obj_dict['_sa_instance_state']
-        
+        for key, value in obj_dict.items():
+            if isinstance(value, list):
+                if all(isinstance(item, BaseModel) for item in value):
+                    obj_dict[key] = [item.to_dict() for item in value]
         return obj_dict
     
     def save(self):
