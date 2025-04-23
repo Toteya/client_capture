@@ -86,3 +86,9 @@ class DBStorage:
         """ Closes the database session
         """
         self.__session.remove()
+
+    def rollback(self):
+        """ Rolls back the changes and elimenates inconsistencies
+        """
+        self.__session.rollback()
+        self.__session.remove()

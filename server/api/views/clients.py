@@ -72,11 +72,10 @@ def link_contact_to_client(client_id, contact_id):
     if not contact:
         return jsonify({"error": "Contact not found"}), 404
 
+    if contact in client.contacts:
+        return jsonify({"message": "Contact already linked to this client"}), 200
+
     client.contacts.append(contact)
-    try:
-        client.save()
-    except IntegrityError:
-        storage.close()
-        return jsonify({"error": "Contact already linked to this client"}), 400
+    client.save()
     client.name
     return jsonify(client.to_dict()), 200
