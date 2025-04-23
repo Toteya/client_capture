@@ -1,5 +1,6 @@
+import ContactLink from "./ContactLink"
 
-const Clients = ({ clients, setClients , contacts}) => {
+const Clients = ({ clients, setClients , contacts, linkContact}) => {
   return (
     <div className="Clients">
       <h2>Clients</h2>
@@ -16,14 +17,17 @@ const Clients = ({ clients, setClients , contacts}) => {
                 <td>{client.name}</td>
                 <td>{client.client_code}</td>
                 <td className="dropdown">
-                    <button className="dropbtn">Add Contacts</button>
-                    <div className="dropdown-content">
-                        {contacts.map((contact) => (
-                            <a key={contact.id} href="#">
-                              {contact.name} {contact.email}
-                            </a>
-                        ))}
-                    </div>
+                  <button className="dropbtn">Add Contacts</button>
+                  <div className="dropdown-content">
+                    {contacts.map((contact) => (
+                      <ContactLink
+                        key={contact.id}
+                        clientId={client.id}
+                        contact={contact}
+                        linkContact={linkContact}
+                      ></ContactLink>
+                    ))}
+                  </div>
                 </td>
               </tr>
             ))}

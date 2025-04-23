@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 
 function App() {
 
-  const API_URL = 'http://localhost:5001/api/clients';
+  const API_BASE_URL = 'http://localhost:5001/api';
 
   const [clients, setClients] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(`${API_BASE_URL}/clients`);
         const data = await response.json();
         setClients(data);
       }
@@ -27,7 +27,7 @@ function App() {
 
     const fetchContacts = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/contacts');
+        const response = await fetch(`${API_BASE_URL}/contacts`);
         const data = await response.json();
         setContacts(data);
       }
@@ -35,17 +35,54 @@ function App() {
         console.error('Error fetching contacts:', error.message);
       }
     };
-
     fetchClients();
     fetchContacts();
   }, []);
 
   // Link a contact to a client
   const linkContact = async (clientId, contactId) => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/clients/${clientId}/${contactId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        } 
+      )
+      if (!response.ok) {
+        throw new Error('Failed to link contact');
+      }
+      const data = await response.json();
+      console.log('Contact linked successfully:', data);
+    }
+    catch (error) {
+      console.error('Error linking contact:', error.message);
+    }
   }
 
   // Link a client to a contact  
   const linkClient = async (contactId, clientId) => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/contacts/${contactId}/${clientId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      if (!response.ok) {
+        throw new Error('Failed to link client');
+      }
+      const data = await response.json();
+      console.log('Client linked successfully:', data);
+    }
+    catch (error) {
+      console.error('Error linking client:', error.message);
+    }    
   }
 
   return (
@@ -58,12 +95,15 @@ function App() {
             clients={clients}
             setClients={setClients}
             contacts={contacts}
+            linkContact={linkContact}
           />
         </Route>
         <Route path="/contacts">
           <Contacts
             contacts={contacts}
             setContacts={setContacts}
+            clients={clients}
+            linkClient={linkClient}
           />
         </Route>
       </Switch>
