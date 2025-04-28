@@ -1,0 +1,59 @@
+import ContactLink from "./ContactLink"
+
+const Clients = ({ clients, setClients , contacts, linkContact, is}) => {
+  return (
+    <div className="Clients">
+      <h2>Clients</h2>
+        {/* <button onClick={addClient}>Add Client</button> */}
+        {fetchError && <p>{fetchError}</p>}
+        {clients.length === 0 && <p>No clients found</p>}
+        {isLoading && <p>Loading...</p>}
+        {!fetchError && !isLoading && clients.length === 0 && (
+          <Table
+            clients={clients}
+            contacts={contacts}
+            linkContact={linkContact}
+          ></Table>
+        )} 
+    </div>
+  )
+}
+const Table = ({ clients, contacts, linkContact }) => {
+  return (
+    <div className="Table">
+        <table>
+          <thead>
+            <tr>
+              <th align='left'>Name</th>
+              <th align='left'>Code</th>
+              <th>No. of Contacts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map((client) => (
+              <tr key={client.id}>
+                <td align='left'>{client.name}</td>
+                <td align='left'>{client.client_code}</td>
+                <td>{client.contacts === undefined ? 0 : client.contacts.length }</td>
+                <td className="dropdown">
+                  <button className="dropbtn">Add Contacts</button>
+                  <div className="dropdown-content">
+                    {contacts.map((contact) => (
+                      <ContactLink
+                        key={contact.id}
+                        clientId={client.id}
+                        contact={contact}
+                        linkContact={linkContact}
+                      ></ContactLink>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+    </div>
+  )
+}
+
+export default Clients
