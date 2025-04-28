@@ -187,8 +187,9 @@ body {
   background-color: #578899;
 }
 
-tr:hover {
-  /* background-color: #578899; */
+tr:hover td{
+  border: 1px solid #809957;
+  cursor: pointer;
 }
 
 th, td {

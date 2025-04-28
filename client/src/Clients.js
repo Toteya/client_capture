@@ -4,11 +4,9 @@ const Clients = ({ clients, setClients , contacts, linkContact, is}) => {
   return (
     <div className="Clients">
       <h2>Clients</h2>
-        {/* <button onClick={addClient}>Add Client</button> */}
-        {fetchError && <p>{fetchError}</p>}
+        <button>Add Client</button>
         {clients.length === 0 && <p>No clients found</p>}
-        {isLoading && <p>Loading...</p>}
-        {!fetchError && !isLoading && clients.length === 0 && (
+        {clients.length > 0 && (
           <Table
             clients={clients}
             contacts={contacts}
@@ -18,6 +16,7 @@ const Clients = ({ clients, setClients , contacts, linkContact, is}) => {
     </div>
   )
 }
+
 const Table = ({ clients, contacts, linkContact }) => {
   return (
     <div className="Table">
@@ -31,7 +30,14 @@ const Table = ({ clients, contacts, linkContact }) => {
           </thead>
           <tbody>
             {clients.map((client) => (
-              <tr key={client.id}>
+              <tr
+                key={client.id}
+                onMouseEnter={(e) => e.currentTarget.style.cursor = 'pointer'}
+                onMouseLeave={(e) => e.currentTarget.style.cursor = 'default'}
+                onClick={() => {
+                  console.log(`Client ${client.name} clicked`);
+                }} 
+              >
                 <td align='left'>{client.name}</td>
                 <td align='left'>{client.client_code}</td>
                 <td>{client.contacts === undefined ? 0 : client.contacts.length }</td>
