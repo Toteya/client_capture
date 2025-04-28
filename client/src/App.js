@@ -12,29 +12,52 @@ function App() {
 
   const [clients, setClients] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [fetchError, setFetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     const fetchClients = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_BASE_URL}/clients`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
         const data = await response.json();
         setClients(data);
+        setFetchError(null);
       }
       catch (error) {
         console.error('Error fetching clients:', error.message);
+        setFetchError('Failed to fetch data');
+      }
+      finally {
+        setIsLoading(false);
       }
     };
 
     const fetchContacts = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_BASE_URL}/contacts`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
         const data = await response.json();
         setContacts(data);
+        setIsLoading(false);
+        setFetchError(null);
       }
       catch (error) {
         console.error('Error fetching contacts:', error.message);
+        setFetchError('Failed to fetch data');
+      }
+      finally {
+        setIsLoading(false);
       }
     };
+
     fetchClients();
     fetchContacts();
   }, []);
@@ -91,20 +114,28 @@ function App() {
       <Nav />
       <Switch>
         <Route path="/clients">
-          <Clients
-            clients={clients}
-            setClients={setClients}
-            contacts={contacts}
-            linkContact={linkContact}
-          />
+          {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && !fetchError && (
+            <Clients
+              clients={clients}
+              setClients={setClients}
+              contacts={contacts}
+              linkContact={linkContact}
+            />
+          )}
         </Route>
         <Route path="/contacts">
-          <Contacts
-            contacts={contacts}
-            setContacts={setContacts}
-            clients={clients}
-            linkClient={linkClient}
-          />
+          {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && !fetchError && (
+            <Contacts
+              contacts={contacts}
+              setContacts={setContacts}
+              clients={clients}
+              linkClient={linkClient}
+            />
+          )}
         </Route>
       </Switch>
     </div>
