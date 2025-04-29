@@ -38,11 +38,8 @@ def create_client():
     name = data.get('name')
     if not name:
         return jsonify({"error": "Missing name"}), 400
-    client_code = data.get('client_code')
-    if not client_code:
-        return jsonify({"error": "Missing client_code"}), 400
 
-    client = Client(name=name, client_code=client_code)
+    client = Client(name=name)
     client.save()
     client.name
     return jsonify(client.to_dict()), 201
