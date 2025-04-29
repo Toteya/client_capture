@@ -40,7 +40,7 @@ class Client(BaseModel, Base):
         if len(name.split()) >= 3:
             prefix = f"{name.split()[0][0].upper()}{name.split()[1][0].upper()}{name.split()[2][0].upper()}"
         elif len(name.split()) == 2:
-            prefix = f"{name.split()[0][0].upper()}{name.split()[0][1]}{name.split()[1][0].upper()}"
+            prefix = f"{name.split()[0][0].upper()}{name.split()[0][1].upper()}{name.split()[1][0].upper()}"
         else:
             prefix = f"{name[0].upper()}{name[1].upper()}{name[2].upper()}"
 
