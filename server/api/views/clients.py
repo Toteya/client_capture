@@ -52,9 +52,10 @@ def delete_client(client_id):
     client = storage.get(Client, client_id)
     if not client:
         return jsonify({"error": "Client not found"}), 404
+    name = client.name
     client.delete()
     storage.close()
-    return jsonify({}), 200
+    return jsonify({'Deleted': f'Client {name}'}), 200
 
 @api_views.route('/clients/<client_id>/<contact_id>', methods=['PUT'], strict_slashes=False)
 def link_contact_to_client(client_id, contact_id):
