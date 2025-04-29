@@ -81,6 +81,17 @@ class DBStorage:
         """
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine))
+    
+    def get_client_codes(self, prefix):
+        """ Retrieves all client codes with the specified prefix
+        """
+        codes = (
+            self.__session.query(Client.client_code)
+            .filter(Client.client_code.startswith(prefix))
+            .order_by(Client.client_code)
+            .all()
+        )
+        return [code[0] for code in codes]
 
     def close(self):
         """ Closes the database session
