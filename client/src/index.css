@@ -147,7 +147,7 @@ body {
 }
 
 .dropbtn {
-  padding: 1rem;
+  padding: 0.25rem;
   border: none;
 }
 
@@ -187,7 +187,7 @@ body {
   background-color: #578899;
 }
 
-tr:hover td{
+tr:hover td:not(.dropdown) {
   border: 1px solid #809957;
   cursor: pointer;
 }
